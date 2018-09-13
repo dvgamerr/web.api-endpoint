@@ -5,7 +5,7 @@ import account from './account'
 
 const router = express.Router()
 
-router.post('/', account)
 router.use(security)
+router.post('/request-token-access', account)
 
 export default router

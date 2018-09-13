@@ -31,21 +31,28 @@ export default (req, res, next) => Raven.Tracking(async () => {
     //   return
     // }
 
-    if (!token[2] || !token[1]) {
+    if (!token[2].trim() || !token[1].trim()) {
       await new LogRequest(requested).save()
       logger.log(`req: ${requested.url} error: Authentication failure.`)
       res.status(400).json({ error: 'Authentication failure.' })
       return
     }
 
-    let data = await Account.findOne({ username: token[2], active: true }) || {}
-    if ((token[1].trim() !== data.token || token[2].trim() !== data.username) && req.originalUrl !== '/v2') {
+    let data = await Account.findOne({ username: token[2].trim(), active: true }) || {}
+    if (!data && req.originalUrl !== '/request-token-access') {
+      logger.log(`req: ${requested.url} error: Authentication not Activate.`)
+      res.status(400).json({ error: 'Authentication not Activate.' })
+      return
+    }
+    
+    if ((token[1].trim() !== data.token || token[2].trim() !== data.username) && req.originalUrl !== '/request-token-access') {
       await new LogRequest(requested).save()
+      logger.log('token:', data.token, token[1].trim(), data.username, token[2].trim())
       logger.log(`req: ${requested.url} error: Authentication required.`)
       res.status(400).json({ error: 'Authentication required.' })
       return
     }
-    logger.log(`req: ${requested.url} error: false.`)
+    logger.log(`req: ${requested.url} auth pass.`)
     requested.token = true
     await new LogRequest(requested).save()
     next()
