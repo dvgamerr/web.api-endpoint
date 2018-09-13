@@ -1,0 +1,46 @@
+{
+  "name": "web.api-opensource",
+  "version": "1.0.0",
+  "description": "Endpoint API for appilication window, linux",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "dev": "env-cmd .env backpack dev",
+    "serv": "env-cmd .env node build/main.js",
+    "build": "npm run precommit && nuxt build && backpack build",
+    "start": "node build/main.js",
+    "test": "node test",
+    "generate": "nuxt generate",
+    "eslint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
+    "precommit": "npm run eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touno-project/web.api-opensource.git"
+  },
+  "author": "Mr.Kananek Thongkam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/touno-project/web.api-opensource/issues"
+  },
+  "homepage": "https://github.com/touno-project/web.api-opensource#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "touno.io": "git+https://github.com/touno-project/module.core-systems.git"
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "backpack-core": "^0.7.0",
+    "env-cmd": "^7.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "youch": "^2.0.9",
+    "youch-terminal": "^1.0.0"
+  }
+}
