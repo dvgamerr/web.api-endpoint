@@ -44,7 +44,7 @@ export default (req, res, next) => Raven.Tracking(async () => {
       res.status(400).json({ error: 'Authentication not Activate.' })
       return
     }
-    
+
     if ((token[1].trim() !== data.token || token[2].trim() !== data.username) && req.originalUrl !== '/request-token-access') {
       await new LogRequest(requested).save()
       logger.log('token:', data.token, token[1].trim(), data.username, token[2].trim())
