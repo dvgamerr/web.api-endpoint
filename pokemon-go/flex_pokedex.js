@@ -1,8 +1,6 @@
-export default (poke) => {
-  return {
-    type: 'flex',
-    altText: `Pokemon#${poke.filename} - ${poke.title_1}`,
-    contents: {
+export default (pokedex) => {
+  let carusels = pokedex.map(poke => {
+    return {
       type: 'bubble',
       styles: { footer: { separator: true } },
       body: {
@@ -116,5 +114,15 @@ export default (poke) => {
         ]
       }
     }
+  })
+  console.log({
+    type: 'carousel',
+    // altText: `Pokemon#${poke.filename} - ${poke.title_1}`,
+    contents: carusels
+  })
+  return {
+    type: 'carousel',
+    // altText: `Pokemon#${poke.filename} - ${poke.title_1}`,
+    contents: carusels
   }
 }

@@ -1,7 +1,7 @@
 import * as line from '@line/bot-sdk'
 import FlexPokedex from './flex_pokedex'
 import express from 'express'
-import { debuger, Time } from 'touno.io'
+import { debuger } from 'touno.io'
 import conn from 'touno.io/db-opensource'
 
 if (!process.env.LINE_TOKEN_POKEDEX || !process.env.LINE_SECRET_POKEDEX) {
@@ -37,7 +37,6 @@ router.post('/:id', line.middleware(config), (req, res) => {
   if (!Array.isArray(req.body.events)) return res.status(500).end()
   if (!Array.isArray(req.body.events)) return res.status(500).end()
 
-  let elasped = new Time()
   Promise.all(req.body.events.map(async event => {
     const { source, message, replyToken, timestamp } = event
     const msg = normalizeText(message.text)
@@ -70,14 +69,22 @@ router.post('/:id', line.middleware(config), (req, res) => {
       let getNo = /pokemon[\W](?<no>\d+)/ig.exec(msg)
       let getSearch = /(search|find|get)[\W](?<msg>.*)/ig.exec(msg)
       if (getNo) {
-        pokedex = await PokemonGo.findOne({ number: parseInt(getNo.groups.no) })
+        pokedex = await PokemonGo.find({ number: parseInt(getNo.groups.no) })
+        logger.log(`pokemon: ${pokedex.length} item`)
+        try {
+          await client.replyMessage(replyToken, FlexPokedex(pokedex))
+        } catch (ex) {
+          logger.error(ex.message)
+        }
       } else if (msg.length > 3) {
         pokedex = await PokemonGo.find({ name: { $in: [ new RegExp(!getSearch ? `^${msg}$` : getSearch.groups.msg, 'ig') ] } })
         if (pokedex.length !== 1) return
-        pokedex = pokedex[0]
+        try {
+          await client.replyMessage(replyToken, FlexPokedex(pokedex))
+        } catch (ex) {
+          logger.error(ex.message)
+        }
       }
-      if (pokedex) await client.replyMessage(replyToken, FlexPokedex(pokedex))
-      logger.log(`Show pokemon ${pokedex.title_1} used`, elasped.nanoseconds())
     }
     // switch (message.type) {
     //   case 'text': return handleText(message, event.replyToken)

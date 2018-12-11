@@ -16,19 +16,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/touno-project/web.api-opensource.git"
+    "url": "git+https://github.com/dvgamerr/web.api-opensource.git"
   },
   "author": "Mr.Kananek Thongkam",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/touno-project/web.api-opensource/issues"
+    "url": "https://github.com/dvgamerr/web.api-opensource/issues"
   },
-  "homepage": "https://github.com/touno-project/web.api-opensource#readme",
+  "homepage": "https://github.com/dvgamerr/web.api-opensource#readme",
   "dependencies": {
-    "@line/bot-sdk": "^6.2.1",
+    "@line/bot-sdk": "^6.4.0",
     "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "touno.io": "git+https://github.com/touno-project/module.core-systems.git"
+    "express": "^4.16.4"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
@@ -37,12 +36,12 @@
     "eslint": "^4.19.1",
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.9.0",
-    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-html": "^3.2.2",
     "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "youch": "^2.0.9",
+    "youch": "^2.0.10",
     "youch-terminal": "^1.0.0"
   }
 }
